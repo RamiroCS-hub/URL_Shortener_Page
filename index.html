@@ -78,11 +78,13 @@
 
           // Realizar la petición POST
           fetch(apiUrl, {
+            headers: { 'Content-Type': 'application/json'},
               method: 'POST',
               body: JSON.stringify(data),
           })
           .then(response => response.json())
           .then(result => {
+            console.log(result);
               if (result.shortenUrl) {
                   document.getElementById('resultMessage').innerText = `URL acortada: ${result.shortenUrl}`;
               } else {
