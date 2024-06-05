@@ -2,3 +2,22 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+html {
+    font-size: 15px;
+    body {
+        background-color: aqua;
+
+        h1 {
+            font-size: 4rem;
+            color: rgb(184, 21, 175);
+        }
+        h2 {
+            font-size: 2rem;
+            color: rgb(37, 21, 184);
+        }
+        .register{
+            box-shadow: 0px 0px 25px 5px #060a2794 inset;
+        }
+    }
+}
