@@ -66,12 +66,38 @@
       <input type="text" class="search-input" id="urlInput" placeholder="Ingrese una URL...">
       <button class="search-button" onclick="shortenUrl()">Acortar</button>
   </div>
+  <button onclick="login()">Iniciar sesión</button>
   <p id="resultMessage"></p>
 
+  <script src="https://cdn.auth0.com/js/auth0/9.18.0/auth0.min.js"></script>
+
   <script>
+    const auth0Client = new auth0.WebAuth({
+      domain: 'dev-fyc850ikobc57pdt.us.auth0.com',
+      audience: 'htpps://RS-256-api',
+      clientID: 'zQZ8PS2D4WjJSPMlMp4TMLwgnPlQkqGt',
+      redirectUri: 'http://127.0.0.1:5500/index.html', // URL de redirección después del inicio de sesión
+      responseType: 'code',
+    });
+
+    // Función para iniciar sesión
+    function login() {
+      auth0Client.login({
+        realm: 'Username-Password-Authentication', // Nombre de la conexión o dominio HRD
+        username: 'test@gmail.com',
+        password: 'Contraseña123',
+      }, (err, authResult) => {
+        if (err) {
+          console.error('Error al iniciar sesión:', err);
+        } else {
+          Document.cookie = authResult.accessToken;
+        }
+      });
+    }
+
       function shortenUrl() {
           const inputUrl = document.getElementById('urlInput').value;
-          const apiUrl = 'https://url-shortener-bjwq.onrender.com/api/shorturl'; // Cambia esto al enlace correcto
+          const apiUrl = 'http://localhost:3000/api/shorturl'; // Cambia esto al enlace correcto
 
           // Crear objeto JSON con la propiedad "url"
           const data = { url: inputUrl };
