@@ -1,42 +1,106 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+
+*{
+  font-family: 'Segoe UI';
+}
+:root {
+  --main-color: #203536;
+  --secondary-color: #FFFC;
+  color: var(--secondary-color);
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 8vh;
+  height: 80vh;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+body .div {
+  display: flex;
+  gap: 100px;
+  flex-direction: column;
+}
+.nav{
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 10vh;
+  background-color:var(--main-color);
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 48px;
+  font-weight: 800;
+}
+.nav a{
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+.pop{
+  display: flex;
+  width: 45vw;
+  height: 25vh;
+  background-color: #121212;
+  border-radius: 15px;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: var(--secondary-color);
+  padding: 10px;
+  box-shadow: 0px 0px 3px var(--secondary-color);
+}
+.pop .pop-input input {
+  border: none;
+  width: 70%;
+  height: 40px;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #FFF4;
+  background-color: #1a1a1a;
+  transition: .3s;
+  color: var(--secondary-color);
+}
+.pop .pop-input input:focus{
+  border-color: #FFFA;
+}
+.pop .pop-input{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.pop-login {
+  gap: 30px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.pop span {
+  font-size: 20px;
+  padding: 10px;
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.pop-response {
+  display: flex;
+  align-items: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.pop-response svg {
+   fill: var(--secondary-color);
+   height: 30px;
+   transition: .2s;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.pop-response svg:hover {
+  fill: var(--main-color);
+  transition: .2s;
+  cursor: pointer;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.pop-response-copy {
+  position: absolute;
+  left: 0;
+  bottom: -20;
 }
