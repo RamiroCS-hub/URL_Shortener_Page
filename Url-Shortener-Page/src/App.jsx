@@ -1,10 +1,19 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 import { AuthUser } from './components/AuthUser.jsx'
 import { Link } from './components/Link.jsx'
 import { Login } from './components/Login.jsx'
-import { Route } from 'react-router-dom'
+import queryString from 'query-string'
 
 function App () {
+  const link = window.location.search
+  const [authCode, setCode] = useState(null)
+  useEffect(() => {
+    const { code } = queryString.parse(window.location.search)
+    setCode(code)
+    console.log('code: ', code)
+    console.log('link: ', link)
+  }, [link])
   return (
     <body>
       <nav className='nav'><a href='#'>URL SHORTENER</a></nav>
@@ -12,8 +21,9 @@ function App () {
         <Link>Paste the Url to be shortened</Link>
         <Login />
       </div>
-      <Route path='/redirect' component='Challenges' />
-      <AuthUser />
+      {
+        authCode && <AuthUser authCode={authCode} />
+      }
     </body>
   )
 }

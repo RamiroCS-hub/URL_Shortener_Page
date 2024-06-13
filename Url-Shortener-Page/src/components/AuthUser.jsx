@@ -1,16 +1,15 @@
-import queryString from 'query-string'
 import { useEffect } from 'react'
 import { URL_VERIFICATION_API } from '../constants/constants.js'
-export const AuthUser = ({ location }) => {
-  const { code } = queryString.parse(location.search)
+
+export const AuthUser = ({ authCode }) => {
   useEffect(() => {
-    console.log('The code was set to:', code)
-    if (!code) {
+    console.log('The code was set to:', authCode)
+    if (!authCode) {
       console.log('The code was not set')
       return () => console.log('Cleaning UseEffect')
     }
-    console.log('Executing fetch:', code)
-    fetch(`${URL_VERIFICATION_API}?code=${code.code}&state=${code.state}`, {
+    console.log('Executing fetch:', authCode)
+    fetch(`${URL_VERIFICATION_API}?code=${authCode}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -18,7 +17,7 @@ export const AuthUser = ({ location }) => {
       }
     }).then(response => response.json())
       .then(data => console.log(data))
-  }, [code])
+  }, [authCode])
   return (
     <div>.</div>
   )
