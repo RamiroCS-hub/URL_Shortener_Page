@@ -43,7 +43,7 @@ body .div {
 .pop{
   display: flex;
   width: 45vw;
-  height: 25vh;
+  min-height: 25vh;
   background-color: #121212;
   border-radius: 15px;
   flex-direction: column;
@@ -103,4 +103,10 @@ body .div {
   position: absolute;
   left: 0;
   bottom: -20;
+}
+.pop-response .copy {
+  fill: rgb(0, 196, 0)
+}
+.pop-response .copy:hover {
+  fill: rgb(0, 196, 0)
 }

@@ -1,14 +1,17 @@
-import crypto from 'node:crypto'
-function base64URLEncode (str) {
-  return str.toString('base64')
+import pkceChallenge from 'pkce-challenge'
+export async function createChallenge () {
+  const codeVerifier = Array.from({ length: 64 }, () => {
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
+    return charset.charAt(Math.floor(Math.random() * charset.length))
+  }).join('')
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(codeVerifier))
+  const challenge = btoa(String.fromCharCode(...new Uint8Array(digest)))
+    .replace(/=/g, '')
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
-    .replace(/=/g, '')
+  return { challenge, codeVerifier }
 }
-export const verifier = base64URLEncode(crypto.randomBytes(32))
-console.log(verifier)
-function sha256 (buffer) {
-  return crypto.createHash('sha256').update(buffer).digest()
+
+export const generateChallengeAndVerifier = async () => {
+  return await pkceChallenge()
 }
-export const challenge = base64URLEncode(sha256(verifier))
-console.log(challenge)
