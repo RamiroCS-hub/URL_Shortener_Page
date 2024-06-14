@@ -1,46 +1,75 @@
 /* eslint-disable no-undef */
 import { useEffect, useState } from 'react'
-import { URL_VERIFICATION_API, responseObject } from '../constants/constants.js'
+import { URL_VERIFICATION_API, responseObject, URL_API } from '../constants/constants.js'
+import toast, { Toaster } from 'react-hot-toast'
+import { UserLink } from './UserLink.jsx'
 
-export const AuthUser = ({ isAuth, authCode, newLink }) => {
-  const [userLinks, setUserLinks] = useState([null])
+export const AuthUser = ({ isAuth, authCode, newLink, handleLogout }) => {
+  const [userLinks, setUserLinks] = useState([responseObject])
   const [statusCode, setDataStatus] = useState(null)
+
   useEffect(() => {
-    if (!authCode) {
-      console.log('The code was not set')
+    if (!authCode && !localStorage.getItem('token')) {
+      console.log('The code and the token were not set')
       return () => console.log('Cleaning UseEffect')
     }
-    const codeVerifier = JSON.parse(sessionStorage.getItem('a0.spajs.txs.tKzMBeuIjTTkONKBafyL0adkgSl4MebY')).code_verifier
 
-    fetch(`${URL_VERIFICATION_API}?code=${authCode}&verifier=${codeVerifier}`, {
+    const URL = authCode
+      ? `${URL_VERIFICATION_API}?code=${authCode}&verifier=${JSON.parse(sessionStorage.getItem('a0.spajs.txs.tKzMBeuIjTTkONKBafyL0adkgSl4MebY')).code_verifier}`
+      : `${URL_API}/auth/`
+    const token = JSON.parse(localStorage.getItem('token'))
+    console.log(token)
+    fetch(URL, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        Accept: 'application/json'
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`
       }
     }).then(response => {
-      response.status !== 200 && response.status !== 206 ? setDataStatus(null) : setDataStatus(response.status)
+      response.status !== 200 && response.status !== 206 && response.status !== 401 ? setDataStatus(null) : setDataStatus(response.status)
+      console.log(response.status, statusCode)
       return response.json()
     }).then(data => {
       console.log(data)
-      localStorage.setItem('token', JSON.stringify(data.token))
-      isAuth()
+      authCode ? isAuth() : console.log('The user is authenticated')
+      data.token ? localStorage.setItem('token', JSON.stringify(data.token)) : console.log('The user already has the token')
+      setUserLinks(data)
+      console.log('User links:', data)
     })
     // TODO: Animación de carga
-  }, [authCode])
+  }, [authCode, newLink])
 
   useEffect(() => {
-    console.log(statusCode)
-    if (statusCode === 203) return
-    if (statusCode !== 200) return
+    if (statusCode === 401) {
+      handleLogout()
+      toast('You have to log in again')
+      return
+    }
+    if (!statusCode || statusCode === 206) return
     console.log('')
-  }, [userLinks])
+  }, [statusCode])
 
-  useEffect(() => {
-    const newUserLinks = [...userLinks]
-    newUserLinks.push(newLink)
-    setUserLinks(newUserLinks)
-  }, [newLink])
+  // useEffect(() => {
+  //   if (!newLink) return
+  //   const newUserLinks = [...userLinks]
+  //   newUserLinks.push(newLink)
+  //   console.log(newUserLinks)
+  //   setUserLinks(newUserLinks)
+  // }, [newLink])
+  const handleDelete = (id) => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    fetch(`${URL_API}/auth/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+  }
   return (
     <>
       {
@@ -48,15 +77,22 @@ export const AuthUser = ({ isAuth, authCode, newLink }) => {
           <div>{
             statusCode === 206
               ? 'Try shorten your first link!'
-              : <ul> {
+              : userLinks && <div className='user-link'>{
                 userLinks.map((_, index) => {
-                  return <li key={index}>{_.id}</li>
+                  return <UserLink shortId={_.shortId} handleDelete={handleDelete} key={index} originalUrl={_.originalUrl} shortenUrl={_.shortenUrl} clicks={_.clicks} />
                 })
               }
-              </ul>
+              </div>
           }
           </div>
     }
+      <Toaster toastOptions={{
+        style: {
+          backgroundColor: 'red',
+          color: '#FFFF'
+        }
+      }}
+      />
     </>
   )
 }
