@@ -3,21 +3,130 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+
+/* Css Reset june 2024 */
+$primario: #00c3ff;
+$secundario: #0a0066;
+$terciario: #252525;
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html {
     font-size: 15px;
+    scroll-behavior: smooth;
+
     body {
-        background-color: aqua;
+        box-shadow: 0px 0px 15px 3px $secundario inset, 0px 0px 20px 10px $primario inset;
+        min-height: 100vh;
+        font-family: monospace;
+
+        input,
+        button,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        p {
+            text-wrap: pretty;
+        }
 
         h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             color: rgb(184, 21, 175);
+            background: -webkit-linear-gradient(0deg, $primario, $secundario);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
         h2 {
-            font-size: 2rem;
-            color: rgb(37, 21, 184);
+            font-size: 2.2rem;
+            color: $secundario;
         }
-        .register{
-            box-shadow: 0px 0px 25px 5px #060a2794 inset;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            text-wrap: balance;
         }
+
+        ul,
+        p,
+        button,
+        input {
+            color: $terciario;
+        }
+
+        img,
+        video,
+        svg {
+            height: auto;
+            max-width: 100%;
+        }
+
+        .doted-background {
+            z-index: -1;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #d3c7ac;
+            opacity: 0.7;
+            background-image: radial-gradient(#000000 0.55px, #c7d7e4 0.55px);
+            background-size: 11px 11px;
+        }
+
+        .arrow {
+            filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.582)) drop-shadow( -2px -2px 5px rgb(246, 252, 255));
+        }
+
+        .link-arrow {
+            position: relative;
+
+            span {
+                display: none;
+                position: absolute;
+                text-wrap: nowrap;
+                bottom: -20px;
+            }
+
+            &:hover {
+                span {
+                    display: block;
+                }
+            }
+        }
+
+        #shortener {
+            input {
+                box-shadow: 0 0 15px -4px $primario inset, -2px -2px 5px rgb(246, 252, 255),3px 3px 2px -1px rgba(0, 0, 0, 0.568) ;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transition: none;
     }
 }
