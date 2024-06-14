@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import { useEffect, useState } from 'react'
 import '../App.css'
 import { URL_API } from '../constants/constants.js'
 import { copyText } from '../logic/copy.js'
 import { CopyLogo } from './CopyLogo.jsx'
+import toast, { Toaster } from 'react-hot-toast'
 
 export function Link ({ children, buttonFun }) {
   const [data, setData] = useState('')
@@ -11,10 +13,13 @@ export function Link ({ children, buttonFun }) {
   const shortLink = () => {
     const input = document.querySelector('.pop-input input')
     const data = { url: input.value }
-
+    const token = JSON.parse(localStorage.getItem('token'))
     // Realizar la petición POST
     fetch(URL_API, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : ''
+      },
       method: 'POST',
       body: JSON.stringify(data)
     })
@@ -23,16 +28,17 @@ export function Link ({ children, buttonFun }) {
         if (!result) {
           console.log('algo salió mal')
           console.log(result)
-          setData(null)
+          toast('Error al acortar la URL, intente nuevamente')
         }
         console.log(result)
-        setData(result.data.shortenUrl)
+        setData(result.data)
         input.value = ''
       })
       .catch(error => {
         console.error('Error al acortar la URL:', error)
-        setData(null)
+        toast('Error al acortar la URL, intente nuevamente')
       })
+    // TODO: Agregar circulo de carga
   }
 
   useEffect(() => {
@@ -64,7 +70,13 @@ export function Link ({ children, buttonFun }) {
             <CopyLogo copied={copy} handleCopy={handleCopy} />
           </div>
       }
-
+      <Toaster toastOptions={{
+        style: {
+          backgroundColor: 'red',
+          color: '#FFFF'
+        }
+      }}
+      />
     </div>
   )
 }

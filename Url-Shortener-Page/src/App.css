@@ -5,6 +5,7 @@
 :root {
   --main-color: #203536;
   --secondary-color: #FFFC;
+  --third-color: #FFFA;
   color: var(--secondary-color);
   margin: 0;
   padding: 0;
@@ -66,7 +67,7 @@ body .div {
   color: var(--secondary-color);
 }
 .pop .pop-input input:focus{
-  border-color: #FFFA;
+  border-color: var(--third-color);
 }
 .pop .pop-input{
   display: flex;
@@ -109,4 +110,18 @@ body .div {
 }
 .pop-response .copy:hover {
   fill: rgb(0, 196, 0)
+}
+.logout-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 20px;
+}
+.logout button {
+  border-color: var(--third-color);
+  transition: .3s;
+}
+.logout button:hover {
+  background-color: #121212;
+  transition: .3s;
 }

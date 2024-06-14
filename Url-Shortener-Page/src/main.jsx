@@ -12,11 +12,11 @@ root.render(
     domain='dev-fyc850ikobc57pdt.us.auth0.com'
     clientId='tKzMBeuIjTTkONKBafyL0adkgSl4MebY'
     authorizationParams={{
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.origin,
+      audience: 'htpps://RS-256-api'
     }}
     skipRedirectCallback
     responseType='code'
-    audience='htpps://RS-256-api'
   >
     <App />
   </Auth0Provider>
