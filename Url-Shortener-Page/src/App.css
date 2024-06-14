@@ -14,7 +14,6 @@ body {
   display: flex;
   flex-direction: column;
   padding-top: 8vh;
-  height: 80vh;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -25,10 +24,10 @@ body .div {
   flex-direction: column;
 }
 .nav{
-  position: fixed;
+  position: absolute;
   top:0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 10vh;
   background-color:var(--main-color);
   justify-content: center;
@@ -125,3 +124,69 @@ body .div {
   background-color: #121212;
   transition: .3s;
 }
+.user-link {
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100px;
+  width: 45vw;
+  color: #FFF;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.user-link-pop{
+  border-top: 2px solid var(--secondary-color);
+  display: flex;
+  width:100%;
+  padding: 10px;
+  gap: 50px;
+  justify-content: space-around;
+}
+.user-link-pop svg {
+  height: 30px;
+  fill: var(--secondary-color);
+  transition: .1s;
+  margin:12px;
+}
+.user-link-pop svg:hover{
+  cursor: pointer;
+  transition: .1s;
+}
+.user-link-pop a {
+  display: block;
+  text-decoration: none;
+  color: var(--secondary-color);
+  transition: .1s;
+}
+.user-link-pop a:first-child {
+  font-size: 20px;
+  color: #34898d
+}
+.user-link-pop a:hover {
+  text-decoration:underline;
+  color: var(--secondary-color);
+  transition: .1s;
+}
+.user-link-pop-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-around;
+  width: 100%;
+}
+.user-link-pop-info svg:hover {
+  fill: rgb(19, 94, 179);
+}
+.user-link-pop-info svg:first-child:hover {
+  fill: rgb(143, 20, 20);
+}
+
+.user-link-pop-links div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-link-pop-links div svg:hover {
+  fill: #34898d
+}
+

@@ -14,35 +14,39 @@ function App () {
   const [auth, setAuth] = useState(false)
   const [data, setData] = useState(responseObject)
   const { logout } = useAuth0()
+
   useEffect(() => {
     const { code } = queryString.parse(window.location.search)
     setCode(code)
   }, [link])
+
   useEffect(() => {
-    console.log(localStorage.getItem('token'))
     if (!localStorage.getItem('token')) return
     setAuth(true)
-  })
+  }, [])
 
   const isAuth = () => {
     setAuth(true)
   }
+
   const handleLogout = () => {
     logout()
     localStorage.removeItem('token')
     setAuth(false)
   }
+
   const handleResponse = (data) => {
+    console.log('cambio la data')
     setData(data)
+    setCode(false)
   }
+
   return (
     <body>
       <nav className='nav'><a href='#'>URL SHORTENER</a></nav>
       <div className='div'>
         <Link isLogged={auth} handleResponse={handleResponse}>Paste the Url to be shortened</Link>
-        {
-          authCode && <AuthUser newLink={data} isAuth={isAuth} authCode={authCode} />
-        }
+        <AuthUser newLink={data} isAuth={isAuth} authCode={authCode} handleLogout={handleLogout} />
         <Login isLogged={auth} handleLogout={handleLogout} />
       </div>
 
