@@ -6,22 +6,22 @@ import { copyText } from '../logic/copy.js'
 import { CopyLogo } from './CopyLogo.jsx'
 import toast, { Toaster } from 'react-hot-toast'
 
-export function Link ({ children, buttonFun }) {
+export function Link ({ children, handleResponse }) {
   const [data, setData] = useState('')
   const [copy, setCopy] = useState(false)
 
   const shortLink = () => {
     const input = document.querySelector('.pop-input input')
-    const data = { url: input.value }
+    const link = { url: input.value }
     const token = JSON.parse(localStorage.getItem('token'))
     // Realizar la petición POST
-    fetch(URL_API, {
+    fetch(`${URL_API}/api/shorturl/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token ? `Bearer ${token}` : ''
       },
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify(link)
     })
       .then(response => response.json())
       .then(result => {
@@ -30,7 +30,6 @@ export function Link ({ children, buttonFun }) {
           console.log(result)
           toast('Error al acortar la URL, intente nuevamente')
         }
-        console.log(result)
         setData(result.data)
         input.value = ''
       })
@@ -43,10 +42,12 @@ export function Link ({ children, buttonFun }) {
 
   useEffect(() => {
     if (data === null) {
+      toast('Error al acortar la URL, intente nuevamente')
       console.log('algo salió mal')
       return
     }
-    console.log('Se esta renderizando el effect con data:', data)
+    console.log('changing data', data)
+    handleResponse(data)
   }, [data])
 
   const handleCopy = async () => {
@@ -66,7 +67,7 @@ export function Link ({ children, buttonFun }) {
       {
         data &&
           <div className='pop-response'>
-            <span>{data}</span>
+            <span>{data.shortenUrl}</span>
             <CopyLogo copied={copy} handleCopy={handleCopy} />
           </div>
       }
