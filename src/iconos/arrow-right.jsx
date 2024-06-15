@@ -3,8 +3,6 @@ export function ArrowRight({ clases, dimentions }) {
         <svg
         className={clases}
         xmlns="http://www.w3.org/2000/svg"
-        width={dimentions}
-        height={dimentions}
         viewBox="0 0 256 256"
     >
         <path

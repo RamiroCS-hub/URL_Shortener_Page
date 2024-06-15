@@ -69,6 +69,9 @@ html {
         input {
             color: $terciario;
         }
+        button{
+            transition: 500ms!important;
+        }
 
         img,
         video,
@@ -90,7 +93,7 @@ html {
         }
 
         .arrow {
-            filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.582)) drop-shadow( -2px -2px 5px rgb(246, 252, 255));
+            filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.616)) drop-shadow( -3px -3px 3px rgb(255, 255, 255));
         }
 
         .link-arrow {
@@ -111,9 +114,18 @@ html {
         }
 
         #shortener {
-            input {
-                box-shadow: 0 0 15px -4px $primario inset, -2px -2px 5px rgb(246, 252, 255),3px 3px 2px -1px rgba(0, 0, 0, 0.568) ;
+            input{
+                box-shadow: 0 0 15px -4px $primario inset, -2px -2px 5px rgb(246, 252, 255),3px 3px 2px -1px rgba(0, 0, 0, 0.568);
             }
+            .acortar{
+                box-shadow: 6px 5px 2px 1px #14b8a6;
+                transition: 200ms;
+                &:hover{
+                    transform: translate(5px, 6px);
+                    box-shadow: 0 0 10px 2px #14b8a598;
+                }
+            }
+
         }
     }
 }
