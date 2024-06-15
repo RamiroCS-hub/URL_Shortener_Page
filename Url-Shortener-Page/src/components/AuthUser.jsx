@@ -1,13 +1,14 @@
 /* eslint-disable no-undef */
+import { EditPop } from './EditPop.jsx'
 import { useEffect, useState } from 'react'
 import { URL_VERIFICATION_API, responseObject, URL_API } from '../constants/constants.js'
 import toast, { Toaster } from 'react-hot-toast'
 import { UserLink } from './UserLink.jsx'
 
-export const AuthUser = ({ isAuth, authCode, newLink, handleLogout }) => {
+export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout }) => {
   const [userLinks, setUserLinks] = useState([responseObject])
   const [statusCode, setDataStatus] = useState(null)
-
+  const [editData, setEditData] = useState(null)
   useEffect(() => {
     if (!authCode && !localStorage.getItem('token')) {
       console.log('The code and the token were not set')
@@ -38,7 +39,7 @@ export const AuthUser = ({ isAuth, authCode, newLink, handleLogout }) => {
       console.log('User links:', data)
     })
     // TODO: Animación de carga
-  }, [authCode, newLink])
+  }, [authCode, change])
 
   useEffect(() => {
     if (statusCode === 401) {
@@ -68,7 +69,29 @@ export const AuthUser = ({ isAuth, authCode, newLink, handleLogout }) => {
       }
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => handleChange())
+  }
+  const handleEdit = (id, shortenUrl, originalUrl) => {
+    // const token = JSON.parse(localStorage.getItem('token'))
+    const data = {
+      id,
+      shortenUrl,
+      originalUrl
+    }
+    setEditData(data)
+    // fetch(`${URL_API}/auth/${id}`, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'content-type': 'application/json',
+    //     Accept: 'application/json',
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // })
+    //   .then(response => response.json())
+    //   .then(data => handleChange())
+  }
+  const handleEditData = () => {
+    setEditData(null)
   }
   return (
     <>
@@ -79,12 +102,15 @@ export const AuthUser = ({ isAuth, authCode, newLink, handleLogout }) => {
               ? 'Try shorten your first link!'
               : userLinks && <div className='user-link'>{
                 userLinks.map((_, index) => {
-                  return <UserLink shortId={_.shortId} handleDelete={handleDelete} key={index} originalUrl={_.originalUrl} shortenUrl={_.shortenUrl} clicks={_.clicks} />
+                  return <UserLink handleEdit={handleEdit} shortId={_.shortId} handleDelete={handleDelete} key={index} originalUrl={_.originalUrl} shortenUrl={_.shortenUrl} clicks={_.clicks} />
                 })
               }
               </div>
           }
           </div>
+    }
+      {
+      editData && <EditPop handleEdit={handleEditData} data={editData} />
     }
       <Toaster toastOptions={{
         style: {

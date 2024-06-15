@@ -12,7 +12,8 @@ function App () {
   const link = window.location.search
   const [authCode, setCode] = useState(null)
   const [auth, setAuth] = useState(false)
-  const [data, setData] = useState(responseObject)
+  // const [data, setData] = useState(responseObject)
+  const [change, setChange] = useState(null)
   const { logout } = useAuth0()
 
   useEffect(() => {
@@ -37,16 +38,21 @@ function App () {
 
   const handleResponse = (data) => {
     console.log('cambio la data')
-    setData(data)
-    setCode(false)
+    // setData(data)
+    setChange(!change)
+    // setCode(false)
   }
 
+  const handleChange = () => {
+    console.log('cambio la data')
+    setChange(!change)
+  }
   return (
     <body>
       <nav className='nav'><a href='#'>URL SHORTENER</a></nav>
       <div className='div'>
-        <Link isLogged={auth} handleResponse={handleResponse}>Paste the Url to be shortened</Link>
-        <AuthUser newLink={data} isAuth={isAuth} authCode={authCode} handleLogout={handleLogout} />
+        <Link isLogged={auth} handleResponse={handleChange}>Paste the Url to be shortened</Link>
+        <AuthUser handleChange={handleChange} change={change} isAuth={isAuth} authCode={authCode} handleLogout={handleLogout} />
         <Login isLogged={auth} handleLogout={handleLogout} />
       </div>
 

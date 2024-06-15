@@ -10,3 +10,8 @@ export const responseObject = {
   updatedAt: '',
   userId: 0
 }
+export const EDIT_OBJECT = {
+  id: 0,
+  shortenUrl: '',
+  originalUrl: ''
+}
