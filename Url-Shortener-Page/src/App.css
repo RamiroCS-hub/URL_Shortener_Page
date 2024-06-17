@@ -42,7 +42,8 @@ body .div {
 }
 .pop{
   display: flex;
-  width: 45vw;
+  min-width: 350px;
+  width:45vw;
   min-height: 25vh;
   background-color: #121212;
   border-radius: 15px;
