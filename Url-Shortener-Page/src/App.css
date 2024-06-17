@@ -127,8 +127,7 @@ body .div {
 .user-link {
   justify-content: center;
   flex-direction: column;
-  min-height: 100px;
-  width: 45vw;
+  
   color: #FFF;
   display: flex;
   gap: 20px;
@@ -189,4 +188,42 @@ body .div {
 .user-link-pop-links div svg:hover {
   fill: #34898d
 }
+.edit-pop-container {
+  height: 150%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+  opacity: .95;
+  position: absolute;
+  top:0;
+  left:0
+}
+.edit-pop {
+  background-color: var(--main-color);
+  max-height: 100px;
+  padding: 20px;
+  width: 45vw;
+  position: absolute;
+  justify-content: space-between;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 15px;
+  align-items: center;
+}
+.edit-pop span {
+  display: block;
+  padding: 4px;
+  outline: none;
+}
+.edit-pop button {
+  height: 50px;
+  border: 2px solid var(--secondary-color)
+}
+
 

@@ -13,10 +13,10 @@ export function Login ({ handleLogout, isLogged }) {
         </div>
         : <div className='pop'>
           <h2>Want more features?</h2>
-          <span>Nulla irure nostrud minim velit ullamco velit cupidatat pariatur reprehenderit labore.Ullamco consectetur eu et elit.</span>
+          <span>Want to track your links? Want to have an easy way to acceed to all of your shortened links? Sign up and start enjoying the full capacities of <b>URL Shortener!</b></span>
           <div className='pop-login'>
-            <button onClick={() => loginWithRedirect()}>Sing up</button>
-            <button>Login</button>
+            <button onClick={() => loginWithRedirect({screen_hint: 'signup'})}>Sing up</button>
+            <button onClick={() => loginWithRedirect() }>Login</button>
           </div>
         </div>
     }

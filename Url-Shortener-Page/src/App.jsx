@@ -36,15 +36,7 @@ function App () {
     setAuth(false)
   }
 
-  const handleResponse = (data) => {
-    console.log('cambio la data')
-    // setData(data)
-    setChange(!change)
-    // setCode(false)
-  }
-
   const handleChange = () => {
-    console.log('cambio la data')
     setChange(!change)
   }
   return (

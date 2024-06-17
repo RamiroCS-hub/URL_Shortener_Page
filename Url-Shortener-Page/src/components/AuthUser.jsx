@@ -79,19 +79,27 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
       originalUrl
     }
     setEditData(data)
-    // fetch(`${URL_API}/auth/${id}`, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'content-type': 'application/json',
-    //     Accept: 'application/json',
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // })
-    //   .then(response => response.json())
-    //   .then(data => handleChange())
   }
-  const handleEditData = () => {
-    setEditData(null)
+  const handleEditData = (newData, id) => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    console.log(id)
+    const object  = {
+      originalUrl: newData
+    }
+    fetch(`${URL_API}/auth/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(object)
+      })
+        .then(response => response.json())
+        .then(data => {
+          setEditData(null)
+          handleChange()
+        })
   }
   return (
     <>
