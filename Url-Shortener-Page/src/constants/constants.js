@@ -1,5 +1,5 @@
-export const URL_API = 'http://localhost:3000'
-export const URL_VERIFICATION_API = 'http://localhost:3001/auth'
+export const URL_API = 'https://url-shortener-1-gl8d.onrender.com'
+export const URL_VERIFICATION_API = 'https://verification-api-jccq.onrender.com/auth'
 export const responseObject = {
   clicks: null,
   createdAt: '',
