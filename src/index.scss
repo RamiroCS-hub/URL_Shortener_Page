@@ -59,7 +59,10 @@ html {
         h3,
         h4,
         h5,
-        h6 {
+        h6,
+        ul {
+            line-height: 110%!important;
+            margin: 0 10px 0 10px!important;
             text-wrap: balance;
         }
 
@@ -140,5 +143,20 @@ html {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
         transition: none;
+    }
+}
+@media screen and ( 565px <= width <= 800px){
+    html{
+        font-size: 14px!important;
+    }
+}
+@media screen and ( 465px <= width <= 565px){
+    html{
+        font-size: 12.5px!important;
+    }
+}
+@media screen and ( width <= 465px){
+    html{
+        font-size: 12px!important;
     }
 }

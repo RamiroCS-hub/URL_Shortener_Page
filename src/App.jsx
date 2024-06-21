@@ -29,15 +29,17 @@ function App() {
 			<div className="doted-background"></div>
 			<main className="w-full flex flex-col items-center">
 				<section className="w-full h-screen flex flex-col justify-start items-center mb-2">
-					<h1 className="text-center justify-self-start mt-5">
-						Url Shortener
-					</h1>
-					<h2 className="text-center">
-						Acorta tus url <strong>RAPIDO</strong>,{" "}
-						<strong>GRATIS</strong> y <strong>SEGURO</strong>
-					</h2>
+					<header className="flex flex-col justify-center items-center h-full mt-14 mb-10">
+						<h1 className="text-center justify-self-start mt-5">
+							Url Shortener
+						</h1>
+						<h2 className="text-center">
+							Acorta tus url <strong>RAPIDO</strong>,{" "}
+							<strong>GRATIS</strong> y <strong>SEGURO</strong>
+						</h2>
+					</header>
 
-					<div className="w-full h-full flex flex-col justify-center items-center">
+					<div className="w-full h-full flex flex-col justify-center items-center mb-12">
 						<ul className="flex flex-col gap-6 mb-7 text-center text-2xl">
 							{beneficios.map((x) => (
 								<li key={x.id} className="justify-between">
@@ -45,7 +47,7 @@ function App() {
 								</li>
 							))}
 						</ul>
-						<div className="mt-2 w-auto flex justify-center gap-7 text-xl mb-20">
+						<div className="mt-5 w-auto flex justify-center gap-7 text-xl mb-20">
 							<button className="p-2 bg-teal-500 border-4 border-teal-500 rounded-3xl">
 								Registrarse
 							</button>
@@ -69,15 +71,15 @@ function App() {
 					id="shortener"
 					className="w-3/4 h-screen m-auto mt-3 flex flex-col justify-center items-center"
 				>
-					<div className="w-full flex justify-between gap-3">
+					<div className="w-full flex flex-wrap sm:flex-nowrap justify-between gap-3">
 						<input
 							className="input h-16 w-full rounded-xl bg-neutral-300 p-4"
 							type="url"
 							name=""
 							id=""
 						/>
-						<span className="flex items-center text-white w-36">
-							<ArrowRight clases="arrow text-cyan-300 w-full" />
+						<span className="flex justify-center items-center text-white w-full sm:w-36">
+							<ArrowRight clases="arrow text-cyan-300 w-14 rotate-90 sm:rotate-0" />
 						</span>
 
 						<input
