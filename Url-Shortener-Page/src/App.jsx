@@ -23,6 +23,7 @@ function App () {
 
   useEffect(() => {
     if (!localStorage.getItem('token')) return
+    console.log(import.meta.env.VITE_URL_API)
     setAuth(true)
   }, [])
 

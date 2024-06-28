@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import { useEffect, useState } from 'react'
 import '../App.css'
-import { URL_API } from '../constants/constants.js'
 import { copyText } from '../logic/copy.js'
 import { CopyLogo } from './CopyLogo.jsx'
 import toast, { Toaster } from 'react-hot-toast'
@@ -15,7 +14,7 @@ export function Link ({ children, handleResponse }) {
     const link = { url: input.value }
     const token = JSON.parse(localStorage.getItem('token'))
     // Realizar la petición POST
-    fetch(`${URL_API}/api/shorturl/`, {
+    fetch(`${import.meta.env.VITE_URL_API}/api/shorturl/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token ? `Bearer ${token}` : ''

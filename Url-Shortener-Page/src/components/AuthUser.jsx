@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { EditPop } from './EditPop.jsx'
 import { useEffect, useState } from 'react'
-import { URL_VERIFICATION_API, responseObject, URL_API } from '../constants/constants.js'
+import { responseObject } from '../constants/constants.js'
 import toast, { Toaster } from 'react-hot-toast'
 import { UserLink } from './UserLink.jsx'
 
@@ -16,8 +16,8 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
     }
 
     const URL = authCode
-      ? `${URL_VERIFICATION_API}?code=${authCode}&verifier=${JSON.parse(sessionStorage.getItem('a0.spajs.txs.tKzMBeuIjTTkONKBafyL0adkgSl4MebY')).code_verifier}`
-      : `${URL_API}/auth/`
+      ? `${import.meta.env.VITE_URL_VERIFICATION_API}?code=${authCode}&verifier=${JSON.parse(sessionStorage.getItem('a0.spajs.txs.tKzMBeuIjTTkONKBafyL0adkgSl4MebY')).code_verifier}`
+      : `${import.meta.env.VITE_URL_API}/auth/`
     const token = JSON.parse(localStorage.getItem('token'))
     console.log(token)
     fetch(URL, {
@@ -60,7 +60,7 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
   // }, [newLink])
   const handleDelete = (id) => {
     const token = JSON.parse(localStorage.getItem('token'))
-    fetch(`${URL_API}/auth/${id}`, {
+    fetch(`${import.meta.env.VITE_URL_API}/auth/${id}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
@@ -86,7 +86,7 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
     const object  = {
       originalUrl: newData
     }
-    fetch(`${URL_API}/auth/${id}`, {
+    fetch(`${import.meta.env.VITE_URL_API}/auth/${id}`, {
         method: 'PATCH',
         headers: {
           'content-type': 'application/json',
