@@ -16,7 +16,7 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
     }
 
     const URL = authCode
-      ? `${import.meta.env.VITE_URL_VERIFICATION_API}?code=${authCode}&verifier=${JSON.parse(sessionStorage.getItem('a0.spajs.txs.tKzMBeuIjTTkONKBafyL0adkgSl4MebY')).code_verifier}`
+      ? `${import.meta.env.VITE_URL_VERIFICATION_API}/auth?code=${authCode}&verifier=${JSON.parse(sessionStorage.getItem('a0.spajs.txs.tKzMBeuIjTTkONKBafyL0adkgSl4MebY')).code_verifier}`
       : `${import.meta.env.VITE_URL_API}/auth/`
     const token = JSON.parse(localStorage.getItem('token'))
     console.log(token)
@@ -35,7 +35,7 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
       console.log(data)
       authCode ? isAuth() : console.log('The user is authenticated')
       data.token ? localStorage.setItem('token', JSON.stringify(data.token)) : console.log('The user already has the token')
-      setUserLinks(data)
+      setUserLinks(data.data)
       console.log('User links:', data)
     })
     // TODO: Animación de carga
@@ -108,7 +108,8 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
           <div>{
             statusCode === 206
               ? 'Try shorten your first link!'
-              : userLinks && <div className='user-link'>{
+              : userLinks && 
+              <div className='user-link'>{
                 userLinks.map((_, index) => {
                   return <UserLink handleEdit={handleEdit} shortId={_.shortId} handleDelete={handleDelete} key={index} originalUrl={_.originalUrl} shortenUrl={_.shortenUrl} clicks={_.clicks} />
                 })
