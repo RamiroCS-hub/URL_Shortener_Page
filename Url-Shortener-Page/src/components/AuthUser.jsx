@@ -9,7 +9,7 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
   const [userLinks, setUserLinks] = useState(null)
   const [statusCode, setDataStatus] = useState(null)
   const [editData, setEditData] = useState(null)
-  const [isUserLinks, setIsUserLinks] = useState(null)
+
   useEffect(() => {
     if (!authCode && !localStorage.getItem('token')) {
       return () => console.log('Cleaning UseEffect')
@@ -97,19 +97,14 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
         })
   }
 
-  useEffect(() => {
-    setIsUserLinks(true)
-    console.log(userLinks)
-  }, [userLinks])
   return (
     <>
       {
-        userLinks &&
           <div>{
             statusCode === 206
               ? 'Try shorten your first link!'
               : <div className='user-link'>{
-                userLinks.map((_, index) => {
+                userLinks?.map((_, index) => {
                   return <UserLink handleEdit={handleEdit} shortId={_.shortId} handleDelete={handleDelete} key={index} originalUrl={_.originalUrl} shortenUrl={_.shortenUrl} clicks={_.clicks} />
                 })
               }
