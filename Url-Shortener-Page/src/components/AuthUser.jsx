@@ -59,7 +59,9 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
   //   setUserLinks(newUserLinks)
   // }, [newLink])
   const handleDelete = (id) => {
+    console.log('Executing delete')
     const token = JSON.parse(localStorage.getItem('token'))
+    console.log('Token is:', token)
     fetch(`${import.meta.env.VITE_URL_API}/auth/${id}`, {
       method: 'DELETE',
       headers: {
