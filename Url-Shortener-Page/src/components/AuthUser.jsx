@@ -110,7 +110,7 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
           <div>{
             statusCode === 206
               ? 'Try shorten your first link!'
-              : userLinks && 
+              : userLinks.length != 0 && 
               <div className='user-link'>{
                 userLinks.map((_, index) => {
                   return <UserLink handleEdit={handleEdit} shortId={_.shortId} handleDelete={handleDelete} key={index} originalUrl={_.originalUrl} shortenUrl={_.shortenUrl} clicks={_.clicks} />
