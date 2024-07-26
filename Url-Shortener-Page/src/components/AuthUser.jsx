@@ -6,12 +6,12 @@ import toast, { Toaster } from 'react-hot-toast'
 import { UserLink } from './UserLink.jsx'
 
 export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout }) => {
-  const [userLinks, setUserLinks] = useState([responseObject])
+  const [userLinks, setUserLinks] = useState(null)
   const [statusCode, setDataStatus] = useState(null)
   const [editData, setEditData] = useState(null)
+  const [isUserLinks, setIsUserLinks] = useState(null)
   useEffect(() => {
     if (!authCode && !localStorage.getItem('token')) {
-      console.log('The code and the token were not set')
       return () => console.log('Cleaning UseEffect')
     }
 
@@ -19,7 +19,6 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
       ? `${import.meta.env.VITE_URL_VERIFICATION_API}/auth?code=${authCode}&verifier=${JSON.parse(sessionStorage.getItem('a0.spajs.txs.tKzMBeuIjTTkONKBafyL0adkgSl4MebY')).code_verifier}`
       : `${import.meta.env.VITE_URL_API}/auth/`
     const token = JSON.parse(localStorage.getItem('token'))
-    console.log(token)
     fetch(URL, {
       method: 'GET',
       headers: {
@@ -29,14 +28,12 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
       }
     }).then(response => {
       response.status !== 200 && response.status !== 206 && response.status !== 401 ? setDataStatus(null) : setDataStatus(response.status)
-      console.log(response.status, statusCode)
       return response.json()
     }).then(data => {
-      console.log(data)
-      authCode ? isAuth() : console.log('The user is authenticated')
-      data.token ? localStorage.setItem('token', JSON.stringify(data.token)) : console.log('The user already has the token')
-      setUserLinks(data.data)
-      console.log('User links:', data)
+      authCode ? isAuth() : ''
+      data.token ? localStorage.setItem('token', JSON.stringify(data.token)) : '' 
+      console.log(data.data)
+      data.data ? setUserLinks(data.data) : ''
     })
     // TODO: Animación de carga
   }, [authCode, change])
@@ -48,7 +45,6 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
       return
     }
     if (!statusCode || statusCode === 206) return
-    console.log('')
   }, [statusCode])
 
   // useEffect(() => {
@@ -59,9 +55,7 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
   //   setUserLinks(newUserLinks)
   // }, [newLink])
   const handleDelete = (id) => {
-    console.log('Executing delete')
     const token = JSON.parse(localStorage.getItem('token'))
-    console.log('Token is:', token)
     fetch(`${import.meta.env.VITE_URL_API}/auth/${id}`, {
       method: 'DELETE',
       headers: {
@@ -84,7 +78,6 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
   }
   const handleEditData = (newData, id) => {
     const token = JSON.parse(localStorage.getItem('token'))
-    console.log(id)
     const object  = {
       originalUrl: newData
     }
@@ -103,15 +96,19 @@ export const AuthUser = ({ handleChange, isAuth, authCode, change, handleLogout 
           handleChange()
         })
   }
+
+  useEffect(() => {
+    setIsUserLinks(true)
+    console.log(userLinks)
+  }, [userLinks])
   return (
     <>
       {
-        statusCode &&
+        userLinks &&
           <div>{
             statusCode === 206
               ? 'Try shorten your first link!'
-              : userLinks.length != 0 && 
-              <div className='user-link'>{
+              : <div className='user-link'>{
                 userLinks.map((_, index) => {
                   return <UserLink handleEdit={handleEdit} shortId={_.shortId} handleDelete={handleDelete} key={index} originalUrl={_.originalUrl} shortenUrl={_.shortenUrl} clicks={_.clicks} />
                 })
